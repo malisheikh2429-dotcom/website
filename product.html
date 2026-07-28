@@ -1,0 +1,726 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products - Amazon Warehouse</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+        }
+
+        function deleteProduct(button) {
+            if (confirm("Are you sure you want to delete this product?")) {
+                button.closest("tr").remove();
+            }
+        }
+
+        function filterProducts() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const rows = document.querySelectorAll("#productTable tbody tr");
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+
+                if (text.includes(filter)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
+</head>
+
+<body class="bg-[#F3F3F3] text-gray-800 font-sans flex h-screen overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+        class="fixed md:relative z-50 w-64 h-screen bg-[#232F3E] text-white flex-shrink-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+
+        <!-- Logo -->
+        <div class="h-16 bg-[#131921] flex items-center px-5">
+            <div class="text-xl font-bold">
+                Amazon <span class="text-[#FF9900]">Warehouse</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="p-3 overflow-y-auto h-[calc(100vh-64px)]">
+
+            <p class="text-xs text-gray-400 uppercase px-3 mt-3 mb-2">
+                Main
+            </p>
+
+            <a href="dashboard.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#34445A] hover:text-white mb-1">
+                <i class="fa-solid fa-chart-line w-6"></i>
+                Dashboard
+            </a>
+
+            <a href="products.html"
+                class="flex items-center px-3 py-2.5 rounded-lg bg-[#34445A] text-white mb-1">
+                <i class="fa-solid fa-box w-6"></i>
+                Products
+            </a>
+
+            <a href="categories.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#34445A] hover:text-white mb-1">
+                <i class="fa-solid fa-layer-group w-6"></i>
+                Categories
+            </a>
+
+            <a href="suppliers.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#34445A] hover:text-white mb-1">
+                <i class="fa-solid fa-truck-field w-6"></i>
+                Suppliers
+            </a>
+
+            <p class="text-xs text-gray-400 uppercase px-3 mt-6 mb-2">
+                Inventory
+            </p>
+
+            <a href="stock-in.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#34445A] hover:text-white mb-1">
+                <i class="fa-solid fa-arrow-down w-6"></i>
+                Stock In
+            </a>
+
+            <a href="stock-out.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#34445A] hover:text-white mb-1">
+                <i class="fa-solid fa-arrow-up w-6"></i>
+                Stock Out
+            </a>
+
+            <a href="orders.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#34445A] hover:text-white mb-1">
+                <i class="fa-solid fa-cart-shopping w-6"></i>
+                Orders
+            </a>
+
+            <p class="text-xs text-gray-400 uppercase px-3 mt-6 mb-2">
+                Reports
+            </p>
+
+            <a href="profit-loss.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#34445A] hover:text-white mb-1">
+                <i class="fa-solid fa-chart-pie w-6"></i>
+                Profit & Loss
+            </a>
+
+            <a href="wastage.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#34445A] hover:text-white mb-1">
+                <i class="fa-solid fa-trash-can w-6"></i>
+                Wastage Report
+            </a>
+
+            <p class="text-xs text-gray-400 uppercase px-3 mt-6 mb-2">
+                Account
+            </p>
+
+            <a href="profile.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#34445A] hover:text-white mb-1">
+                <i class="fa-solid fa-user w-6"></i>
+                Profile
+            </a>
+
+            <a href="settings.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#34445A] hover:text-white mb-1">
+                <i class="fa-solid fa-gear w-6"></i>
+                Settings
+            </a>
+
+            <a href="login.html"
+                class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-red-600 hover:text-white mt-4">
+                <i class="fa-solid fa-right-from-bracket w-6"></i>
+                Logout
+            </a>
+
+        </nav>
+    </aside>
+
+
+    <!-- MAIN SECTION -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+
+        <!-- TOP NAVBAR -->
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 md:px-6">
+
+            <div class="flex items-center gap-4">
+
+                <!-- Mobile Menu -->
+                <button onclick="toggleSidebar()"
+                    class="md:hidden text-gray-600 text-xl">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <!-- Search -->
+                <div class="hidden sm:flex relative">
+                    <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+
+                    <input type="text"
+                        placeholder="Search..."
+                        class="w-64 lg:w-80 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF9900]">
+                </div>
+
+            </div>
+
+            <div class="flex items-center gap-5">
+
+                <!-- Notification -->
+                <button class="relative text-gray-500 hover:text-gray-800">
+                    <i class="fa-solid fa-bell text-lg"></i>
+
+                    <span
+                        class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
+                        3
+                    </span>
+                </button>
+
+                <!-- User -->
+                <div class="flex items-center gap-2">
+
+                    <div
+                        class="w-9 h-9 rounded-full bg-[#232F3E] text-white flex items-center justify-center font-bold">
+                        AS
+                    </div>
+
+                    <div class="hidden md:block">
+                        <p class="text-sm font-semibold">
+                            Admin User
+                        </p>
+
+                        <p class="text-xs text-gray-500">
+                            Administrator
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4 md:p-6">
+
+            <!-- PAGE HEADER -->
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+
+                <div>
+
+                    <!-- Breadcrumb -->
+                    <div class="text-sm text-gray-500 mb-1">
+
+                        <a href="dashboard.html"
+                            class="hover:text-[#FF9900]">
+                            Dashboard
+                        </a>
+
+                        <span class="mx-1">/</span>
+
+                        <span class="text-gray-800">
+                            Products
+                        </span>
+
+                    </div>
+
+                    <h1 class="text-2xl font-bold text-gray-800">
+                        Manage Products
+                    </h1>
+
+                    <p class="text-sm text-gray-500 mt-1">
+                        Manage warehouse products and inventory.
+                    </p>
+
+                </div>
+
+
+                <!-- Add Product -->
+                <a href="add-product.html"
+                    class="bg-[#FF9900] hover:bg-[#e38800] text-gray-900 px-4 py-2.5 rounded-lg shadow font-semibold inline-flex items-center justify-center">
+
+                    <i class="fa-solid fa-plus mr-2"></i>
+
+                    Add Product
+
+                </a>
+
+            </div>
+
+
+            <!-- TABLE CARD -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+
+                <!-- TABLE HEADER -->
+                <div
+                    class="p-4 border-b flex flex-col md:flex-row gap-3 justify-between md:items-center bg-gray-50">
+
+                    <!-- Search Products -->
+                    <div class="relative">
+
+                        <i
+                            class="fa-solid fa-search absolute left-3 top-3 text-gray-400">
+                        </i>
+
+                        <input
+                            id="searchInput"
+                            type="text"
+                            onkeyup="filterProducts()"
+                            placeholder="Search products..."
+                            class="w-full md:w-72 pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#FF9900]">
+
+                    </div>
+
+
+                    <!-- Filter -->
+                    <button
+                        class="border border-gray-300 bg-white text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-100">
+
+                        <i class="fa-solid fa-filter mr-1"></i>
+
+                        Filter
+
+                    </button>
+
+                </div>
+
+
+                <!-- TABLE -->
+                <div class="overflow-x-auto">
+
+                    <table
+                        id="productTable"
+                        class="w-full text-left border-collapse">
+
+                        <thead>
+
+                            <tr
+                                class="bg-gray-100 text-gray-600 text-xs uppercase">
+
+                                <th class="py-3 px-4 border-b">
+                                    ID
+                                </th>
+
+                                <th class="py-3 px-4 border-b">
+                                    Product Name
+                                </th>
+
+                                <th class="py-3 px-4 border-b">
+                                    Category
+                                </th>
+
+                                <th class="py-3 px-4 border-b">
+                                    Price
+                                </th>
+
+                                <th class="py-3 px-4 border-b">
+                                    Stock
+                                </th>
+
+                                <th class="py-3 px-4 border-b">
+                                    Status
+                                </th>
+
+                                <th class="py-3 px-4 border-b text-center">
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody class="text-sm divide-y divide-gray-200">
+
+                            <!-- PRODUCT 1 -->
+                            <tr class="hover:bg-gray-50">
+
+                                <td class="py-3 px-4 font-medium text-gray-900">
+                                    #PRD-001
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Echo Dot (4th Gen)
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Electronics
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    $49.99
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    150
+                                </td>
+
+                                <td class="py-3 px-4">
+
+                                    <span
+                                        class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-semibold">
+                                        In Stock
+                                    </span>
+
+                                </td>
+
+                                <td class="py-3 px-4 text-center">
+
+                                    <a href="edit-product.html"
+                                        class="text-blue-500 hover:text-blue-700 mx-2">
+
+                                        <i class="fa-solid fa-pen-to-square"></i>
+
+                                    </a>
+
+                                    <button
+                                        onclick="deleteProduct(this)"
+                                        class="text-red-500 hover:text-red-700 mx-2">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- PRODUCT 2 -->
+                            <tr class="hover:bg-gray-50">
+
+                                <td class="py-3 px-4 font-medium text-gray-900">
+                                    #PRD-002
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Kindle Paperwhite
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Electronics
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    $129.99
+                                </td>
+
+                                <td class="py-3 px-4 text-red-500 font-bold">
+                                    5
+                                </td>
+
+                                <td class="py-3 px-4">
+
+                                    <span
+                                        class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-semibold">
+                                        Low Stock
+                                    </span>
+
+                                </td>
+
+                                <td class="py-3 px-4 text-center">
+
+                                    <a href="edit-product.html"
+                                        class="text-blue-500 hover:text-blue-700 mx-2">
+
+                                        <i class="fa-solid fa-pen-to-square"></i>
+
+                                    </a>
+
+                                    <button
+                                        onclick="deleteProduct(this)"
+                                        class="text-red-500 hover:text-red-700 mx-2">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- PRODUCT 3 -->
+                            <tr class="hover:bg-gray-50">
+
+                                <td class="py-3 px-4 font-medium text-gray-900">
+                                    #PRD-003
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Apple AirPods Pro
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Electronics
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    $249.99
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    85
+                                </td>
+
+                                <td class="py-3 px-4">
+
+                                    <span
+                                        class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-semibold">
+                                        In Stock
+                                    </span>
+
+                                </td>
+
+                                <td class="py-3 px-4 text-center">
+
+                                    <a href="edit-product.html"
+                                        class="text-blue-500 hover:text-blue-700 mx-2">
+
+                                        <i class="fa-solid fa-pen-to-square"></i>
+
+                                    </a>
+
+                                    <button
+                                        onclick="deleteProduct(this)"
+                                        class="text-red-500 hover:text-red-700 mx-2">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- PRODUCT 4 -->
+                            <tr class="hover:bg-gray-50">
+
+                                <td class="py-3 px-4 font-medium text-gray-900">
+                                    #PRD-004
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Logitech MX Master 3
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Accessories
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    $99.99
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    42
+                                </td>
+
+                                <td class="py-3 px-4">
+
+                                    <span
+                                        class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-semibold">
+                                        In Stock
+                                    </span>
+
+                                </td>
+
+                                <td class="py-3 px-4 text-center">
+
+                                    <a href="edit-product.html"
+                                        class="text-blue-500 hover:text-blue-700 mx-2">
+
+                                        <i class="fa-solid fa-pen-to-square"></i>
+
+                                    </a>
+
+                                    <button
+                                        onclick="deleteProduct(this)"
+                                        class="text-red-500 hover:text-red-700 mx-2">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- PRODUCT 5 -->
+                            <tr class="hover:bg-gray-50">
+
+                                <td class="py-3 px-4 font-medium text-gray-900">
+                                    #PRD-005
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Samsung 55" Smart TV
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Home Appliances
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    $699.99
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    18
+                                </td>
+
+                                <td class="py-3 px-4">
+
+                                    <span
+                                        class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-semibold">
+                                        Medium Stock
+                                    </span>
+
+                                </td>
+
+                                <td class="py-3 px-4 text-center">
+
+                                    <a href="edit-product.html"
+                                        class="text-blue-500 hover:text-blue-700 mx-2">
+
+                                        <i class="fa-solid fa-pen-to-square"></i>
+
+                                    </a>
+
+                                    <button
+                                        onclick="deleteProduct(this)"
+                                        class="text-red-500 hover:text-red-700 mx-2">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- PRODUCT 6 -->
+                            <tr class="hover:bg-gray-50">
+
+                                <td class="py-3 px-4 font-medium text-gray-900">
+                                    #PRD-006
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Nike Air Max 270
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    Fashion
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    $149.99
+                                </td>
+
+                                <td class="py-3 px-4">
+                                    64
+                                </td>
+
+                                <td class="py-3 px-4">
+
+                                    <span
+                                        class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-semibold">
+                                        In Stock
+                                    </span>
+
+                                </td>
+
+                                <td class="py-3 px-4 text-center">
+
+                                    <a href="edit-product.html"
+                                        class="text-blue-500 hover:text-blue-700 mx-2">
+
+                                        <i class="fa-solid fa-pen-to-square"></i>
+
+                                    </a>
+
+                                    <button
+                                        onclick="deleteProduct(this)"
+                                        class="text-red-500 hover:text-red-700 mx-2">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- PAGINATION -->
+                <div
+                    class="p-4 border-t flex flex-col sm:flex-row gap-3 items-center justify-between bg-gray-50">
+
+                    <span class="text-sm text-gray-500">
+                        Showing 1 to 6 of 1,248 entries
+                    </span>
+
+                    <div class="flex space-x-1">
+
+                        <button
+                            class="px-3 py-1.5 border rounded bg-white text-gray-500 hover:bg-gray-100">
+                            Prev
+                        </button>
+
+                        <button
+                            class="px-3 py-1.5 border rounded bg-[#232F3E] text-white">
+                            1
+                        </button>
+
+                        <button
+                            class="px-3 py-1.5 border rounded bg-white text-gray-600 hover:bg-gray-100">
+                            2
+                        </button>
+
+                        <button
+                            class="px-3 py-1.5 border rounded bg-white text-gray-600 hover:bg-gray-100">
+                            3
+                        </button>
+
+                        <button
+                            class="px-3 py-1.5 border rounded bg-white text-gray-500 hover:bg-gray-100">
+                            Next
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>
+```

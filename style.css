@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    background-color: #232F3E;
+}
+
+.amazon-orange {
+    background-color: #FF9900;
+}
+
+.amazon-orange:hover {
+    background-color: #e88b00;
+}
+
+.amazon-navy {
+    background-color: #232F3E;
+}
+
+.sidebar-link {
+    transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+    background-color: #37475A;
+}
+
+.sidebar-link.active {
+    background-color: #37475A;
+    color: #FF9900;
+    font-weight: bold;
+}
+
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.chart-bar {
+    height: 180px;
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+    gap: 12px;
+}
+
+.bar {
+    width: 35px;
+    background-color: #FF9900;
+    border-radius: 5px 5px 0 0;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #FF9900 !important;
+    box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+    .sidebar-mobile {
+        position: fixed;
+        z-index: 50;
+        height: 100vh;
+    }
+}

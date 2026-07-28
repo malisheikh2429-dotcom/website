@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Add Product</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+</head>
+
+<body class="bg-gray-100">
+
+<header class="bg-[#232F3E] text-white p-4">
+
+<div class="max-w-5xl mx-auto flex justify-between">
+
+<h1 class="text-xl font-bold">
+Add Product
+</h1>
+
+<a href="products.html">
+Back to Products
+</a>
+
+</div>
+
+</header>
+
+<main class="max-w-5xl mx-auto p-6">
+
+<div class="bg-white rounded-xl shadow p-6">
+
+<h2 class="text-2xl font-bold mb-6">
+Product Information
+</h2>
+
+<form action="products.html">
+
+<div class="grid md:grid-cols-2 gap-5">
+
+<div>
+
+<label class="font-semibold">
+Product Name
+</label>
+
+<input
+type="text"
+required
+class="w-full border rounded-lg p-3 mt-2"
+placeholder="Enter product name">
+
+</div>
+
+<div>
+
+<label class="font-semibold">
+SKU
+</label>
+
+<input
+type="text"
+required
+class="w-full border rounded-lg p-3 mt-2"
+placeholder="PRD-001">
+
+</div>
+
+<div>
+
+<label class="font-semibold">
+Category
+</label>
+
+<select
+required
+class="w-full border rounded-lg p-3 mt-2">
+
+<option value="">
+Select Category
+</option>
+
+<option>
+Electronics
+</option>
+
+<option>
+Books
+</option>
+
+<option>
+Home
+</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label class="font-semibold">
+Price
+</label>
+
+<input
+type="number"
+min="0"
+required
+class="w-full border rounded-lg p-3 mt-2"
+placeholder="0.00">
+
+</div>
+
+<div>
+
+<label class="font-semibold">
+Quantity
+</label>
+
+<input
+type="number"
+min="0"
+required
+class="w-full border rounded-lg p-3 mt-2"
+placeholder="0">
+
+</div>
+
+<div>
+
+<label class="font-semibold">
+Supplier
+</label>
+
+<select
+class="w-full border rounded-lg p-3 mt-2">
+
+<option>
+Select Supplier
+</option>
+
+<option>
+ABC Suppliers
+</option>
+
+<option>
+Global Traders
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="mt-5">
+
+<label class="font-semibold">
+Description
+</label>
+
+<textarea
+rows="5"
+class="w-full border rounded-lg p-3 mt-2"
+placeholder="Product description"></textarea>
+
+</div>
+
+<div class="flex justify-end gap-3 mt-6">
+
+<a href="products.html"
+class="border px-5 py-3 rounded-lg">
+
+Cancel
+
+</a>
+
+<button
+type="submit"
+class="amazon-orange text-white px-6 py-3 rounded-lg">
+
+Save Product
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</main>
+
+</body>
+</html>

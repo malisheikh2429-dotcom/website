@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Edit Product</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+</head>
+
+<body class="bg-gray-100">
+
+<header class="bg-[#232F3E] text-white p-4">
+
+<div class="max-w-5xl mx-auto flex justify-between">
+
+<h1 class="font-bold text-xl">
+Edit Product
+</h1>
+
+<a href="products.html">
+Products
+</a>
+
+</div>
+
+</header>
+
+<main class="max-w-5xl mx-auto p-6">
+
+<div class="bg-white rounded-xl shadow p-6">
+
+<h2 class="text-2xl font-bold mb-6">
+Edit Product Details
+</h2>
+
+<form action="products.html">
+
+<div class="grid md:grid-cols-2 gap-5">
+
+<div>
+
+<label>Product Name</label>
+
+<input
+type="text"
+value="Echo Dot"
+required
+class="w-full border rounded-lg p-3 mt-2">
+
+</div>
+
+<div>
+
+<label>SKU</label>
+
+<input
+type="text"
+value="PRD-001"
+required
+class="w-full border rounded-lg p-3 mt-2">
+
+</div>
+
+<div>
+
+<label>Category</label>
+
+<select class="w-full border rounded-lg p-3 mt-2">
+
+<option selected>
+Electronics
+</option>
+
+<option>
+Books
+</option>
+
+<option>
+Home
+</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>Price</label>
+
+<input
+type="number"
+value="49.99"
+class="w-full border rounded-lg p-3 mt-2">
+
+</div>
+
+<div>
+
+<label>Quantity</label>
+
+<input
+type="number"
+value="150"
+class="w-full border rounded-lg p-3 mt-2">
+
+</div>
+
+<div>
+
+<label>Supplier</label>
+
+<select class="w-full border rounded-lg p-3 mt-2">
+
+<option selected>
+ABC Suppliers
+</option>
+
+<option>
+Global Traders
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="mt-5">
+
+<label>Description</label>
+
+<textarea
+class="w-full border rounded-lg p-3 mt-2"
+rows="5">Smart speaker with Alexa.</textarea>
+
+</div>
+
+<div class="flex justify-end gap-3 mt-6">
+
+<a href="products.html"
+class="border px-5 py-3 rounded-lg">
+
+Cancel
+
+</a>
+
+<button
+class="amazon-orange text-white px-6 py-3 rounded-lg">
+
+Update Product
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</main>
+
+</body>
+</html>

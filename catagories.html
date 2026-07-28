@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categories</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-gray-100">
+
+<header class="bg-[#232F3E] text-white p-5">
+<div class="max-w-6xl mx-auto flex justify-between">
+<h1 class="font-bold text-xl">Categories</h1>
+<a href="dashboard.html">Dashboard</a>
+</div>
+</header>
+
+<main class="max-w-6xl mx-auto p-6">
+
+<div class="flex justify-between mb-6">
+<h1 class="text-3xl font-bold">Manage Categories</h1>
+
+<button onclick="openModal('categoryModal')"
+class="amazon-orange text-white px-5 py-3 rounded-lg">
+<i class="fa-solid fa-plus"></i> Add Category
+</button>
+</div>
+
+<div class="bg-white rounded-xl shadow overflow-x-auto">
+
+<table class="w-full">
+
+<thead class="bg-gray-100">
+
+<tr>
+<th class="p-4 text-left">ID</th>
+<th class="p-4 text-left">Category</th>
+<th class="p-4 text-left">Products</th>
+<th class="p-4 text-left">Status</th>
+<th class="p-4">Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr class="border-t">
+<td class="p-4">CAT-001</td>
+<td class="p-4">Electronics</td>
+<td class="p-4">450</td>
+<td class="p-4">
+<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full">
+Active
+</span>
+</td>
+<td class="p-4">Edit | Delete</td>
+</tr>
+
+<tr class="border-t">
+<td class="p-4">CAT-002</td>
+<td class="p-4">Books</td>
+<td class="p-4">320</td>
+<td class="p-4">
+<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full">
+Active
+</span>
+</td>
+<td class="p-4">Edit | Delete</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</main>
+
+<div id="categoryModal"
+class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-5">
+
+<div class="bg-white rounded-xl p-6 w-full max-w-md">
+
+<h2 class="text-xl font-bold mb-5">
+Add Category
+</h2>
+
+<form>
+
+<input
+required
+placeholder="Category Name"
+class="w-full border p-3 rounded-lg mb-4">
+
+<button
+class="amazon-orange text-white px-5 py-3 rounded-lg">
+Save Category
+</button>
+
+<button
+type="button"
+onclick="closeModal('categoryModal')"
+class="border px-5 py-3 rounded-lg">
+Cancel
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script src="assets/js/script.js"></script>
+
+</body>
+</html>
